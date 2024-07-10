@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import com.beijunyi.parallelgit.filesystem.AbstractGitFileSystemTest;
 import com.beijunyi.parallelgit.filesystem.io.GfsTreeIterator;
 import com.beijunyi.parallelgit.utils.TreeUtils;
+import com.beijunyi.parallelgit.utils.TreeUtilsExtended;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilter;
 import org.junit.Before;
@@ -67,7 +68,7 @@ public class GfsTreeWalkTest extends AbstractGitFileSystemTest {
     initGitFileSystem("/dir/some_file.txt");
     TreeWalk tw = forPath("/dir");
     assertEquals(TREE, tw.getFileMode(0));
-    assertTrue(TreeUtils.isDirectory(tw));
+    assertTrue(TreeUtilsExtended.isDirectory(tw));
   }
 
   @Test

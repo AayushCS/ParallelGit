@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.beijunyi.parallelgit.utils.TreeUtils;
+import com.beijunyi.parallelgit.utils.TreeUtilsExtended;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.treewalk.TreeWalk;
 
@@ -57,7 +58,7 @@ public class TreeSnapshot extends ObjectSnapshot<SortedMap<String, GitFileEntry>
   @Nonnull
   public static TreeSnapshot load(ObjectId id, ObjectReader reader) throws IOException {
     SortedMap<String, GitFileEntry> ret = new TreeMap<>();
-    try(TreeWalk tw = TreeUtils.newTreeWalk(id, reader)) {
+    try(TreeWalk tw = TreeUtilsExtended.newTreeWalk(id, reader)) {
       while(tw.next()) ret.put(tw.getNameString(), newEntry(tw));
     }
     return new TreeSnapshot(ret, id);

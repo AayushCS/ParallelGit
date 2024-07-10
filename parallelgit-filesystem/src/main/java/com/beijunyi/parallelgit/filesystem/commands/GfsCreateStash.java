@@ -26,7 +26,7 @@ import static org.eclipse.jgit.lib.Repository.shortenRefName;
 public class GfsCreateStash extends GfsCommand<GfsCreateStash.Result> {
 
   private static final String DEFAULT_INDEX_MESSAGE_FORMAT = "index on {0}: {1} {2}";
-  private static final String DEFAULT_WORKING_DIR_MESSAGE_FORMAT = "WIP on {0}: {1} {2}";
+  private static final String DEFAULT_WORK_DIR_MESSAGE = "WIP on {0}: {1} {2}";
 
   private String branch;
   private String indexMessage;
@@ -98,7 +98,7 @@ public class GfsCreateStash extends GfsCommand<GfsCreateStash.Result> {
 
   private void prepareDirectoryMessage() throws IOException {
     if(workingDirectoryMessage == null)
-      workingDirectoryMessage = MessageFormat.format(DEFAULT_WORKING_DIR_MESSAGE_FORMAT, branch, parent.abbreviate(7).name(), getCommit(parent, repo).getShortMessage());
+      workingDirectoryMessage = MessageFormat.format(DEFAULT_WORK_DIR_MESSAGE, branch, parent.abbreviate(7).name(), getCommit(parent, repo).getShortMessage());
   }
 
   @Nonnull

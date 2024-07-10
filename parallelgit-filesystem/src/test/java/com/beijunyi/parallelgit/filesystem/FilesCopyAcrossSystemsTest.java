@@ -59,10 +59,11 @@ public class FilesCopyAcrossSystemsTest extends AbstractGitFileSystemTest {
     commitToMaster();
     initGitFileSystem();
 
-    GitPath source = gfs.getPath("/source.txt");
-    GitPath target = targetGfs.getPath("/target.txt");
+
+    GitPath source = getPathHelper(gfs,"/source.txt");
+    GitPath target = getPathHelper(targetGfs,"/target.txt");
     Files.copy(source, target);
-    assertTrue(targetGfs.getStatusProvider().isDirty());
+    assertTrue(getStatusHelper().isDirty());
   }
 
   @Test
@@ -113,10 +114,18 @@ public class FilesCopyAcrossSystemsTest extends AbstractGitFileSystemTest {
     commitToMaster();
     initGitFileSystem();
 
-    GitPath source = gfs.getPath("/source");
-    GitPath target = targetGfs.getPath("/target");
+    GitPath source = getPathHelper(gfs,"/source");
+    GitPath target = getPathHelper(targetGfs,"/target");
     Files.copy(source, target);
-    assertTrue(targetGfs.getStatusProvider().isDirty());
+    assertTrue(getStatusHelper().isDirty());
   }
 
+  public GfsStatusProvider getStatusHelper() {
+    return targetGfs.getStatusProvider();
+  }
+
+  public GitPath getPathHelper(GitFileSystem xyz, String Path) {
+    GitPath path = xyz.getPath(Path);
+    return path;
+  }
 }

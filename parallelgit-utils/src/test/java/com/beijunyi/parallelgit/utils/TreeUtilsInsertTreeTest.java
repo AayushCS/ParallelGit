@@ -21,7 +21,7 @@ public class TreeUtilsInsertTreeTest extends AbstractParallelGitTest {
     tf.append("file1.txt", REGULAR_FILE, nodeObject1);
     ObjectId nodeObject2 = someObjectId();
     tf.append("file2.txt", REGULAR_FILE, nodeObject2);
-    ObjectId tree = TreeUtils.insertTree(tf, repo);
+    ObjectId tree = TreeUtilsExtended.insertTree(tf, repo);
 
     assertEquals(nodeObject1, TreeUtils.getObjectId("file1.txt", tree, repo));
     assertEquals(nodeObject2, TreeUtils.getObjectId("file2.txt", tree, repo));
@@ -34,7 +34,7 @@ public class TreeUtilsInsertTreeTest extends AbstractParallelGitTest {
     TreeFormatter tf = new TreeFormatter();
     tf.append("file.txt", REGULAR_FILE, someObjectId());
     tf.append("dir", TREE, someObjectId());
-    ObjectId tree = TreeUtils.insertTree(tf, repo);
+    ObjectId tree = TreeUtilsExtended.insertTree(tf, repo);
 
     assertEquals(REGULAR_FILE, TreeUtils.getFileMode("file.txt", tree, repo));
     assertEquals(TREE, TreeUtils.getFileMode("dir", tree, repo));

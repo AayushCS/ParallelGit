@@ -38,9 +38,9 @@ public class TreeUtilsTest extends AbstractParallelGitTest {
   public void isDirectoryTest() throws IOException {
     writeToCache("a/b.txt");
     RevTree tree = commitToMaster().getTree();
-    assertTrue(TreeUtils.isDirectory("a", tree, repo));
-    assertFalse(TreeUtils.isDirectory("a/b.txt", tree, repo));
-    assertFalse(TreeUtils.isDirectory("a/b", tree, repo));
+    assertTrue(TreeUtilsExtended.isDirectory("a", tree, repo));
+    assertFalse(TreeUtilsExtended.isDirectory("a/b.txt", tree, repo));
+    assertFalse(TreeUtilsExtended.isDirectory("a/b", tree, repo));
   }
 
   private static void assertNextEntry(TreeWalk treeWalk, String path) throws IOException {

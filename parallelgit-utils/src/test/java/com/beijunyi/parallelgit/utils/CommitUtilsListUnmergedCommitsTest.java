@@ -1,17 +1,18 @@
 package com.beijunyi.parallelgit.utils;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.beijunyi.parallelgit.AbstractParallelGitTest;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.util.List;
+
 import static com.beijunyi.parallelgit.utils.BranchUtils.createBranch;
 import static com.beijunyi.parallelgit.utils.CommitUtils.listUnmergedCommits;
 import static org.eclipse.jgit.lib.Constants.MASTER;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CommitUtilsListUnmergedCommitsTest extends AbstractParallelGitTest {
 

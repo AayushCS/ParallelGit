@@ -22,63 +22,63 @@ public class TreeUtilsNodeTypeTest extends AbstractParallelGitTest {
   public void testIsDirectoryOnFile_shouldReturnFalse() throws IOException {
     writeToCache("/test_file.txt");
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertFalse(TreeUtils.isDirectory("/test_file.txt", rootTree, repo));
+    assertFalse(TreeUtilsExtended.isDirectory("/test_file.txt", rootTree, repo));
   }
 
   @Test
   public void testIsDirectoryOnDirectory_shouldReturnTrue() throws IOException {
     writeToCache("/test_dir/some_file.txt");
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertTrue(TreeUtils.isDirectory("/test_dir", rootTree, repo));
+    assertTrue(TreeUtilsExtended.isDirectory("/test_dir", rootTree, repo));
   }
 
   @Test
   public void testIsDirectoryWhenDirectoryDoesNotExist_shouldReturnFalse() throws IOException {
     writeSomethingToCache();
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertFalse(TreeUtils.isDirectory("/non_existent_directory", rootTree, repo));
+    assertFalse(TreeUtilsExtended.isDirectory("/non_existent_directory", rootTree, repo));
   }
 
   @Test
   public void testIsRegularFileOnRegularFile_shouldReturnTrue() throws IOException {
     writeToCache("/test_file.txt");
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertTrue(TreeUtils.isFile("/test_file.txt", rootTree, repo));
+    assertTrue(TreeUtilsExtended.isFile("/test_file.txt", rootTree, repo));
   }
 
   @Test
   public void testIsRegularFileOnExecutableFile_shouldReturnTrue() throws IOException {
     writeToCache("/test_file.txt", someBytes(), EXECUTABLE_FILE);
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertTrue(TreeUtils.isFile("/test_file.txt", rootTree, repo));
+    assertTrue(TreeUtilsExtended.isFile("/test_file.txt", rootTree, repo));
   }
 
   @Test
   public void testIsRegularFileWhenFileDoesNotExist_shouldReturnFalse() throws IOException {
     writeSomethingToCache();
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertFalse(TreeUtils.isFile("/non_existent_file.txt", rootTree, repo));
+    assertFalse(TreeUtilsExtended.isFile("/non_existent_file.txt", rootTree, repo));
   }
 
   @Test
   public void testIsSymbolicLinkOnRegularFile_shouldReturnFalse() throws IOException {
     writeToCache("/test_file.txt");
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertFalse(TreeUtils.isSymbolicLink("/test_file.txt", rootTree, repo));
+    assertFalse(TreeUtilsExtended.isSymbolicLink("/test_file.txt", rootTree, repo));
   }
 
   @Test
   public void testIsSymbolicLinkOnSymbolicLink_shouldReturnTrue() throws IOException {
     writeToCache("/test_file.txt", someBytes(), SYMLINK);
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertTrue(TreeUtils.isSymbolicLink("/test_file.txt", rootTree, repo));
+    assertTrue(TreeUtilsExtended.isSymbolicLink("/test_file.txt", rootTree, repo));
   }
 
   @Test
   public void testIsSymbolicLinkWhenFileDoesNotExist_shouldReturnFalse() throws IOException {
     writeSomethingToCache();
     AnyObjectId rootTree = commitToMaster().getTree();
-    assertFalse(TreeUtils.isSymbolicLink("/non_existent_file.txt", rootTree, repo));
+    assertFalse(TreeUtilsExtended.isSymbolicLink("/non_existent_file.txt", rootTree, repo));
   }
 
 

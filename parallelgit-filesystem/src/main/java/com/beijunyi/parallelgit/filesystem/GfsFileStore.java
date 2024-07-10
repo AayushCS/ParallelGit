@@ -56,10 +56,10 @@ public class GfsFileStore extends FileStore {
 
   @Override
   public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
-    return
-      type.isAssignableFrom(GfsFileAttributeView.Basic.class)
-        || type.isAssignableFrom(GfsFileAttributeView.Posix.class)
-        || type.isAssignableFrom(GfsFileAttributeView.Git.class);
+    Boolean Statement1 = type.isAssignableFrom(GfsFileAttributeView.Basic.class);
+    Boolean Statement2 = type.isAssignableFrom(GfsFileAttributeView.Posix.class);
+    Boolean Statement3 = type.isAssignableFrom(GfsFileAttributeView.Git.class);
+    return Statement1 || Statement2 || Statement3;
   }
 
   @Override

@@ -26,7 +26,7 @@ public final class GitFileUtils {
   }
 
   public static boolean isDirectory(String file, AnyObjectId commit, ObjectReader reader) throws IOException {
-    return TreeUtils.isDirectory(file, getRootTree(commit, reader), reader);
+    return TreeUtilsExtended.isDirectory(file, getRootTree(commit, reader), reader);
   }
 
   public static boolean isDirectory(String file, AnyObjectId commit, Repository repo) throws IOException {
@@ -41,7 +41,7 @@ public final class GitFileUtils {
 
   public static boolean isFile(String file, AnyObjectId commit, ObjectReader reader) throws IOException {
     ObjectId root = getRootTree(commit, reader);
-    return TreeUtils.isFile(file, root, reader);
+    return TreeUtilsExtended.isFile(file, root, reader);
   }
 
   public static boolean isFile(String file, AnyObjectId commit, Repository repo) throws IOException {
@@ -55,7 +55,7 @@ public final class GitFileUtils {
   }
 
   public static boolean isSymbolicLink(String file, AnyObjectId commit, ObjectReader reader) throws IOException {
-    return TreeUtils.isSymbolicLink(file, getRootTree(commit, reader), reader);
+    return TreeUtilsExtended.isSymbolicLink(file, getRootTree(commit, reader), reader);
   }
 
   public static boolean isSymbolicLink(String file, AnyObjectId commit, Repository repo) throws IOException {

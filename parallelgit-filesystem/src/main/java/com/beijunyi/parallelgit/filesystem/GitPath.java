@@ -253,11 +253,29 @@ public class GitPath implements Path {
 
     int thisOffsetCount = getNameCount();
     int thatOffsetCount = that.getNameCount();
-
+    if(!startsWithHelper(other)){
+      return false;
+    }
     // other path has no name elements
     if(thatOffsetCount == 0 && this.isAbsolute())
       return !that.isEmpty();
 
+    // offsets match so need to compare bytes
+    int i=0;
+    while (i < that.path.length) {
+      if(this.path[i] != that.path[i])
+        return false;
+      i++;
+    }
+
+    // final check that match is on name boundary
+    return !(i < path.length && this.path[i] != '/');
+
+  }
+  public boolean startsWithHelper(Path other) {
+    GitPath that = (GitPath) other;
+    int thisOffsetCount = getNameCount();
+    int thatOffsetCount = that.getNameCount();
     // given path has more elements that this path
     if(thatOffsetCount > thisOffsetCount)
       return false;
@@ -273,19 +291,9 @@ public class GitPath implements Path {
       if(!o1.equals(o2))
         return false;
     }
-
-    // offsets match so need to compare bytes
-    int i=0;
-    while (i < that.path.length) {
-      if(this.path[i] != that.path[i])
-        return false;
-      i++;
-    }
-
-    // final check that match is on name boundary
-    return !(i < path.length && this.path[i] != '/');
-
+    return true;
   }
+
 
   @Override
   public boolean startsWith(String other) {

@@ -73,6 +73,8 @@ public final class CommitUtils {
 
   @Nonnull
   public static List<RevCommit> getHistory(AnyObjectId start, int skip, int limit, ObjectReader reader) throws IOException {
+    RevWalk rw = getRevWalk(start,reader,null);
+    List<RevCommit> commits = getCommits(0,1,rw);
     return getHistory(start, skip, limit, null, reader);
   }
 
@@ -89,15 +91,12 @@ public final class CommitUtils {
   }
 
   @Nonnull
-  public static List<RevCommit> getFileRevisions(String path, AnyObjectId start, int skip, int limit, ObjectReader reader) throws IOException {
-    path = normalizeNodePath(path);
-    TreeFilter filter = AndTreeFilter.create(PathFilterGroup.createFromStrings(path), ANY_DIFF);
-    return getHistory(start, skip, limit, filter, reader);
-  }
-
-  @Nonnull
   public static List<RevCommit> getFileRevisions(String path, AnyObjectId start, ObjectReader reader) throws IOException {
-    return getFileRevisions(path, start, 0, Integer.MAX_VALUE, reader);
+    path = normalizeNodePath(path);
+    TreeFilter filter = getTreeFilter(path);
+    RevWalk rw = getRevWalk(start,reader,filter);
+    List<RevCommit> commits = getCommits(0,Integer.MAX_VALUE,rw);
+    return commits;
   }
 
   @Nonnull
@@ -113,9 +112,32 @@ public final class CommitUtils {
     return id != null ? getFileRevisions(file, id, repo) : Collections.<RevCommit>emptyList();
   }
 
+  public static TreeFilter getTreeFilter(String path) {
+    path = normalizeNodePath(path);
+    TreeFilter filter = AndTreeFilter.create(PathFilterGroup.createFromStrings(path), ANY_DIFF);
+    return filter;
+  }
+
+  public static RevWalk getRevWalk(AnyObjectId start, ObjectReader reader, TreeFilter filter) throws IOException {
+    try(RevWalk rw = new RevWalk(reader)) {
+      rw.markStart(CommitUtils.getCommit(start, reader));
+      if(filter != null)
+        rw.setTreeFilter(filter);
+      return rw;
+    }
+  }
+
+  public static List<RevCommit> getCommits(int skip, int limit, RevWalk rw){
+    List<RevCommit> commits;
+      commits = toCommitList(rw, skip, limit);
+    return commits;
+  }
+
   @Nullable
   public static RevCommit getLatestFileRevision(String path, AnyObjectId start, ObjectReader reader) throws IOException {
-    List<RevCommit> commits = getFileRevisions(path, start, 0, 1, reader);
+    TreeFilter filter = getTreeFilter(path);
+    RevWalk rw = getRevWalk(start,reader,filter);
+    List<RevCommit> commits = getCommits(0,1,rw);
     if(commits.isEmpty()) return null;
     return commits.get(0);
   }
@@ -249,3 +271,4 @@ public final class CommitUtils {
   }
 
 }
+

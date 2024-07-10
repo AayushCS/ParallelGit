@@ -214,7 +214,7 @@ public class GitFileSystemProvider extends FileSystemProvider {
   }
 
   @Nonnull
-  private static GitFileSystemProvider getInstalledProvider() {
+  static GitFileSystemProvider getInstalledProvider() {
     GitFileSystemProvider ret = null;
     for(FileSystemProvider provider : FileSystemProvider.installedProviders()) {
       if(provider instanceof GitFileSystemProvider) {
@@ -228,7 +228,7 @@ public class GitFileSystemProvider extends FileSystemProvider {
   }
 
   @Nonnull
-  private static Collection<OpenOption> supportedOpenOption() {
+  static Collection<OpenOption> supportedOpenOption() {
     List<OpenOption> options = Arrays.<OpenOption>asList(READ, SPARSE, CREATE, CREATE_NEW, WRITE, APPEND, TRUNCATE_EXISTING);
     return unmodifiableList(options);
   }

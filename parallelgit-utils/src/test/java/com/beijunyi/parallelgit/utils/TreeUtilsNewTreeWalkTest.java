@@ -21,7 +21,7 @@ public class TreeUtilsNewTreeWalkTest extends AbstractParallelGitTest {
   public void createTreeWalkForTree_shouldReturnNonRecursiveTreeWalk() throws IOException {
     writeMultipleToCache("/a.txt", "/b.txt", "/c/d.txt", "/c/e.txt", "/f/g.txt");
     RevTree tree = commitToMaster().getTree();
-    TreeWalk treeWalk = TreeUtils.newTreeWalk(tree, repo);
+    TreeWalk treeWalk = TreeUtilsExtended.newTreeWalk(tree, repo);
 
     assertNextEntry(treeWalk, "a.txt");
     assertNextEntry(treeWalk, "b.txt");
