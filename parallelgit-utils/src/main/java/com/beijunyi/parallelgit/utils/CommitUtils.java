@@ -70,12 +70,13 @@ public final class CommitUtils {
       return rw.lookupCommit(obj) != null;
     }
   }
-
+  // three getter methods getRevWalk, getCommits and getTreeFilter created to
+  // reduce parameters from getFileRevisions and getHistory and deleted those with 5 parameters.
   @Nonnull
   public static List<RevCommit> getHistory(AnyObjectId start, int skip, int limit, ObjectReader reader) throws IOException {
     RevWalk rw = getRevWalk(start,reader,null);
-    List<RevCommit> commits = getCommits(0,1,rw);
-    return getHistory(start, skip, limit, null, reader);
+    List<RevCommit> commits = getCommits(skip,limit,rw);
+    return commits;
   }
 
   @Nonnull
@@ -89,7 +90,8 @@ public final class CommitUtils {
       return getHistory(start, reader);
     }
   }
-
+  // three getter methods getRevWalk, getCommits and getTreeFilter created to
+  // reduce parameters from getFileRevisions and getHistory and deleted those with 5 parameters.
   @Nonnull
   public static List<RevCommit> getFileRevisions(String path, AnyObjectId start, ObjectReader reader) throws IOException {
     path = normalizeNodePath(path);
@@ -242,18 +244,6 @@ public final class CommitUtils {
   @Nonnull
   private static List<? extends AnyObjectId> toParentList(@Nullable AnyObjectId parent) {
     return parent != null ? Collections.singletonList(parent) : Collections.<AnyObjectId>emptyList();
-  }
-
-  @Nonnull
-  private static List<RevCommit> getHistory(AnyObjectId start, int skip, int limit, @Nullable TreeFilter filter, ObjectReader reader) throws IOException {
-    List<RevCommit> commits;
-    try(RevWalk rw = new RevWalk(reader)) {
-      rw.markStart(CommitUtils.getCommit(start, reader));
-      if(filter != null)
-        rw.setTreeFilter(filter);
-      commits = toCommitList(rw, skip, limit);
-    }
-    return commits;
   }
 
   @Nonnull

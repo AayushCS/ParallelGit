@@ -6,10 +6,14 @@ import org.eclipse.jgit.treewalk.TreeWalk;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 
+import static com.beijunyi.parallelgit.utils.TreeUtils.forPath;
+import static com.beijunyi.parallelgit.utils.TreeUtils.getFileMode;
 import static org.eclipse.jgit.lib.FileMode.*;
 import static org.eclipse.jgit.lib.FileMode.SYMLINK;
 
-public class TreeUtilsExtended extends TreeUtils {
+//New Class created which is an extension to TreeUtils, is responsible for some tasks of original treeUtil
+//and prevents "insufficient modularization" code smell"
+public class TreeUtilsExtended{
 
     @Nonnull
     public static TreeWalk newTreeWalk(AnyObjectId tree, ObjectReader reader) throws IOException {

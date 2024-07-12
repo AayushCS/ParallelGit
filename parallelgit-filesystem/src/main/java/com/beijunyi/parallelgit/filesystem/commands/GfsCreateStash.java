@@ -26,7 +26,7 @@ import static org.eclipse.jgit.lib.Repository.shortenRefName;
 public class GfsCreateStash extends GfsCommand<GfsCreateStash.Result> {
 
   private static final String DEFAULT_INDEX_MESSAGE_FORMAT = "index on {0}: {1} {2}";
-  private static final String DEFAULT_WORK_DIR_MESSAGE = "WIP on {0}: {1} {2}";
+  private static final String DEFAULT_WORK_DIR_MESSAGE = "WIP on {0}: {1} {2}"; //Identifier length reduced and fixed long identifier code smell
 
   private String branch;
   private String indexMessage;

@@ -119,6 +119,8 @@ public class FilesCopyAcrossSystemsTest extends AbstractGitFileSystemTest {
     Files.copy(source, target);
     assertTrue(getStatusHelper().isDirty());
   }
+  //Two helper/getter method to directly interact with GitFileSystem so that copyFileToAnotherSystem_theTargetFileSystemShouldBecomeDirty
+  //and copyDirectoryToAnotherSystem_theTargetFileSystemShouldBecomeDirty Test does not cause feature envy code smell.
 
   public GfsStatusProvider getStatusHelper() {
     return targetGfs.getStatusProvider();

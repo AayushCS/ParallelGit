@@ -272,6 +272,7 @@ public class GitPath implements Path {
     return !(i < path.length && this.path[i] != '/');
 
   }
+  //Helper method created which helps the startsWith method with some of its conditionals and for loop to reduce complexity.
   public boolean startsWithHelper(Path other) {
     GitPath that = (GitPath) other;
     int thisOffsetCount = getNameCount();
